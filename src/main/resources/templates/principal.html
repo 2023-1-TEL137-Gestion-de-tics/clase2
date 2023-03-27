@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8">
+        <title>Title</title>
+    </head>
+    <body>
+        <h1>Hola Persona</h1>
+        <p>Nombre Persona: <span th:text="${persona.nombre}">Juan</span></p>
+        <p th:text="${persona.nombre}">Nombre Persona: Juan</p>
+        <p th:text="|Nombre Persona: ${persona.nombre}|">Nombre Persona: David</p>
+        <form method="post" th:action="@{/guardar}">
+            <label>Nombre</label>
+            <input name="nombre"/>
+            <br/>
+            <label>Edad</label>
+            <input name="edad"/>
+            <br/>
+            <label>Ciudad</label>
+            <input name="ciudad"/>
+            <button type="submit">Enviar</button>
+        </form>
+
+        <form th:object="${persona}">
+            <label>Nombre</label>
+            <input th:value="*{nombre}" name="nombre"/>
+            <br/>
+            <label>Edad</label>
+            <input th:field="*{edad}"/>
+        </form>
+        <table>
+            <tr>
+                <th>#</th>
+                <th>Nombre</th>
+            </tr>
+            <tr th:each="per,var: ${lista}">
+                <td th:text="${var.index+1}">1</td>
+                <td th:text="${per.nombre}">Cesar</td>
+            </tr>
+        </table>
+        <label>Personas</label>
+        <select>
+            <option th:each="per: ${lista}"
+                    th:value="${per.nombre}"
+                    th:text="${per.nombre}"
+                    name="nombre">Cesar</option>
+            <option value="1" name="nombre">Juan</option>
+        </select>
+        <a th:href="@{/ruta2}">enlace</a>
+    </body>
+</html>
